@@ -1,15 +1,18 @@
 import os
 import torch
 import torchvision
+import pydicom  # 导入pydicom库以处理DICOM图像
 import random
 import numpy as np
 
 IMG_EXTENSIONS = ['.jpg', '.JPG', '.jpeg', '.JPEG',
                   '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP', 'tif']
-
+# 添加DICOM扩展名
+DICOM_EXTENSION = '.dcm'
 
 def is_image_file(filename):
-    return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
+    # 检查文件是否为支持的图像或DICOM文件
+    return any(filename.endswith(extension) for extension in IMG_EXTENSIONS) or filename.endswith(DICOM_EXTENSION)
 
 
 def get_paths_from_images(path):
@@ -23,6 +26,12 @@ def get_paths_from_images(path):
     assert images, '{:s} has no valid image file'.format(path)
     return sorted(images)
 
+# DICOM图像读取函数
+def read_dicom_image(path):
+    dataset = pydicom.dcmread(path)
+    pixel_array = dataset.pixel_array.astype(np.float32)  # 读取DICOM图像的像素数据
+    # 这里可以添加额外的处理，如窗宽窗位调整等（如果需要）
+    return pixel_array
 
 def augment(img_list, hflip=True, rot=True, split='val'):
     # horizontal flip OR rotate
@@ -73,7 +82,7 @@ def transform2tensor(img, min_max=(0, 1)):
 # implementation by torchvision, detail in https://github.com/Janspiry/Image-Super-Resolution-via-Iterative-Refinement/issues/14
 totensor = torchvision.transforms.ToTensor()
 hflip = torchvision.transforms.RandomHorizontalFlip()
-def transform_augment(img_list, split='val', min_max=(0, 1)):    
+def transform_augment(img_list, split='val', min_max=(0, 1)):
     imgs = [totensor(img) for img in img_list]
     if split == 'train':
         imgs = torch.stack(imgs, 0)
