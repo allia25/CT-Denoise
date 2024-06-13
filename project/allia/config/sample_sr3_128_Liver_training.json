@@ -15,7 +15,7 @@
         "train": {
             "name": "Liver",
             "mode": "HR", // whether need LR img
-            "dataroot": "F:\\CT_png\\LDCT_full_png\\LDCT_full_png_Liver",
+            "dataroot": "/root/autodl-tmp/yidatest3/dataset/full",
             "datatype": "img", //lmdb or img, path of img files
             "exclude_patients": ["L286", "L291", "L310", "L333", "L506"],
             "l_resolution": 0, // low resolution need to super_resolution
@@ -28,7 +28,7 @@
         "val": {
             "name": "Liver",
             "mode": "HR",
-            "dataroot": "F:\\CT_png\\AAPM_full_png",
+            "dataroot": "/root/autodl-tmp/yidatest3/dataset/full",
             "datatype": "img", //lmdb or img, path of img files
             "include_patients": ["L506"],
             "l_resolution": 0,
@@ -80,8 +80,8 @@
     },
     "train": {
         "n_iter": 200000,
-        "val_freq": 1e4, //1e4
-        "save_checkpoint_freq": 1e4,
+        "val_freq": 1e5, //1e4
+        "save_checkpoint_freq": 1e5,
         "print_freq": 200,
         "optimizer": {
             "type": "adamw",

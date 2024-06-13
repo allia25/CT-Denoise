@@ -23,5 +23,5 @@ dn:
   b: -0.01 # AdaLamI: $\lambda_0^{ada} = a \cdot std(\widehat{n}) + b$
   c: 0.3 # AdaLamII: $\Lambda_0^{ada} = c \cdot \widehat{n}$
   resume: 3
-  mean_num: 10 # multiple denoising and take average, reduce mean_num if CUDA_OUT_OF_MEMORY
+  mean_num: 1 # multiple denoising and take average, reduce mean_num if CUDA_OUT_OF_MEMORY
   bs: 1 # batch size
