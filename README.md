@@ -5,14 +5,17 @@ Firstly, the sample resolution we use is 512x512. Training directly with such a 
 
 
 1、train:
+
  python ./autodl-tmp/yidatest3/sample_training.py -c ./autodl-tmp/yidatest3/config/sample_sr3_128_Liver_training.json -p train
  python ./autodl-tmp/yidatest3/sr_training.py -c ./autodl-tmp/yidatest3/config/sr_sr3_128_512_Liver_training.json -p train
 
 
 2、val:
+
  python dcm_128_denoising_dcm.py -c ./config/Dn_liver_128.yaml        
  python dcm_128_512_denoising_dcm.py -c ./config/Dn_liver_128_512.yaml
 
  
 3、gamma：
+
  python -c gamma.py
